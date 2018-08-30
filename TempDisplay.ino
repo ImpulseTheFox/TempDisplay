@@ -11,18 +11,18 @@
 static const int PANEL_COUNT = 4;
 
 //Edit these pins if desired
-static const int PIN_DIG_1	= 15;
-static const int PIN_DIG_2	= 2;
-static const int PIN_DIG_3	= 0;
-static const int PIN_DIG_4	= 4;
-static const int PIN_A	  	= 13;
-static const int PIN_B	  	= 12;
-static const int PIN_C	  	= 14;
-static const int PIN_D	  	= 27;
-static const int PIN_E		  = 26;
-static const int PIN_F		  = 25;
-static const int PIN_G	  	= 33;
-static const int PIN_DP		  = 32;
+static const int PIN_DIG_1 = 15;
+static const int PIN_DIG_2 = 2;
+static const int PIN_DIG_3 = 0;
+static const int PIN_DIG_4 = 4;
+static const int PIN_A     = 13;
+static const int PIN_B     = 12;
+static const int PIN_C     = 14;
+static const int PIN_D     = 27;
+static const int PIN_E     = 26;
+static const int PIN_F     = 25;
+static const int PIN_G     = 33;
+static const int PIN_DP    = 32;
  
 Adafruit_BMP280 bme; // I2C
 //Adafruit_BMP280 bme(BMP_CS); // hardware SPI
