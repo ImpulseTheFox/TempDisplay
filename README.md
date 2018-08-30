@@ -33,5 +33,7 @@ Here is a schematic I created in KiCad:
 
 # My setup
 
+Note that I didn't use 8x 75Ω resistors, because I didn't have them handy. Instead I just used one 220Ω resistor, which is bad, but it works.
+
 ![Upper view with comments](images/up.jpg)  
 ![Front view](images/front.jpg)
