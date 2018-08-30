@@ -204,7 +204,7 @@ void showString(String str)
         {
           int displayIndex; //Index without the dot
   
-          if (i > str.indexOf('.'))
+          if (str.indexOf('.') != -1 && i > str.indexOf('.'))
           {
             displayIndex = i - 1;
           }
