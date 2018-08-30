@@ -22,10 +22,10 @@ The required components are:
 and
 
 - Resistors
- - 8x 75Ω (for the digit display)
- - 4x 10kΩ (for the transistors)
+  - 8x 75Ω (for the digit display)
+  - 4x 10kΩ (for the transistors)
 - Transistors
- - 4x BC547
+  - 4x BC547
 
 The components can be substituted, these are just my recommendations. The voltage applied to the sensor and the display should be at 3.3V.
 
