@@ -2,7 +2,7 @@
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BMP280.h>
- 
+
 #define BMP_SCK 13
 #define BMP_MISO 12
 #define BMP_MOSI 11
@@ -23,7 +23,7 @@ static const int PIN_E     = 26;
 static const int PIN_F     = 25;
 static const int PIN_G     = 33;
 static const int PIN_DP    = 32;
- 
+
 Adafruit_BMP280 bme; // I2C
 //Adafruit_BMP280 bme(BMP_CS); // hardware SPI
 //Adafruit_BMP280 bme(BMP_CS, BMP_MOSI, BMP_MISO, BMP_SCK);
@@ -33,7 +33,7 @@ static bool bme_begin_successful;
 //Arduino doesn't support sprintf
 String formatWithPadding(double temp, int padding)
 {
-  //The temperature will never be more than 2 digits left and right from the decimal point, so this is okay
+	//The temperature will never be more than 2 digits left and right from the decimal point, so this is okay
 	String tempString = String(temp, padding); //Adding right padding
 	if (temp < 10 && temp > -10) tempString = "0" + tempString; //Adding left padding
 
@@ -153,29 +153,29 @@ void showDigit(char character, int position, bool enableDot)
 				digitalWrite(PIN_F, HIGH);
 				digitalWrite(PIN_G, HIGH);
 				break;
-      case 'F':
-        digitalWrite(PIN_A, HIGH);
-        digitalWrite(PIN_E, HIGH);
-        digitalWrite(PIN_F, HIGH);
-        digitalWrite(PIN_G, HIGH);
-        break;
-      case 'A':
-        digitalWrite(PIN_A, HIGH);
-        digitalWrite(PIN_B, HIGH);
-        digitalWrite(PIN_C, HIGH);
-        digitalWrite(PIN_E, HIGH);
-        digitalWrite(PIN_F, HIGH);
-        digitalWrite(PIN_G, HIGH);
-        break;
-      case 'I':
-        digitalWrite(PIN_B, HIGH);
-        digitalWrite(PIN_C, HIGH);
-        break;
-      case 'L':
-        digitalWrite(PIN_D, HIGH);
-        digitalWrite(PIN_E, HIGH);
-        digitalWrite(PIN_F, HIGH);
-        break;
+			case 'F':
+				digitalWrite(PIN_A, HIGH);
+				digitalWrite(PIN_E, HIGH);
+				digitalWrite(PIN_F, HIGH);
+				digitalWrite(PIN_G, HIGH);
+				break;
+			case 'A':
+				digitalWrite(PIN_A, HIGH);
+				digitalWrite(PIN_B, HIGH);
+				digitalWrite(PIN_C, HIGH);
+				digitalWrite(PIN_E, HIGH);
+				digitalWrite(PIN_F, HIGH);
+				digitalWrite(PIN_G, HIGH);
+				break;
+			case 'I':
+				digitalWrite(PIN_B, HIGH);
+				digitalWrite(PIN_C, HIGH);
+				break;
+			case 'L':
+				digitalWrite(PIN_D, HIGH);
+				digitalWrite(PIN_E, HIGH);
+				digitalWrite(PIN_F, HIGH);
+				break;
 			default:
 				return;
 		}
@@ -190,42 +190,42 @@ void showDigit(char character, int position, bool enableDot)
 //Shows a string on the display for 10 seconds
 void showString(String str)
 {
-  String strWithoutDot = str;
-  strWithoutDot.replace(".", "");
-  if(strWithoutDot.length() <= PANEL_COUNT)
-  {
-    unsigned long startMillis = millis();
-    while (true)
-    {
-      for (int i = 0; i < str.length(); i++)
-      {
-        char currentChar = str.charAt(i);
-        if (currentChar != '.') //Skip the dot
-        {
-          int displayIndex; //Index without the dot
-  
-          if (str.indexOf('.') != -1 && i > str.indexOf('.'))
-          {
-            displayIndex = i - 1;
-          }
-          else
-          {
-            displayIndex = i;
-          }
-  
-          bool nextIsDot = str.charAt(i + 1) == '.';
-          showDigit(currentChar, displayIndex, nextIsDot);
-        }
-        //Add a delay here to make flickering visible. Increase value of delay for more flickering.
-        //delay(10);
-      }
-  
-      if ((millis() - startMillis) >= (10 * 1000)) //Break after 10 seconds
-      {
-        break;
-      }
-    }
-  }
+	String strWithoutDot = str;
+	strWithoutDot.replace(".", "");
+	if(strWithoutDot.length() <= PANEL_COUNT)
+	{
+		unsigned long startMillis = millis();
+		while (true)
+		{
+			for (int i = 0; i < str.length(); i++)
+			{
+				char currentChar = str.charAt(i);
+				if (currentChar != '.') //Skip the dot
+				{
+					int displayIndex; //Index without the dot
+
+					if (str.indexOf('.') != -1 && i > str.indexOf('.'))
+					{
+						displayIndex = i - 1;
+					}
+					else
+					{
+						displayIndex = i;
+					}
+
+					bool nextIsDot = str.charAt(i + 1) == '.';
+					showDigit(currentChar, displayIndex, nextIsDot);
+				}
+				//Add a delay here to make flickering visible. Increase value of delay for more flickering.
+				//delay(10);
+			}
+
+			if ((millis() - startMillis) >= (10 * 1000)) //Break after 10 seconds
+			{
+				break;
+			}
+		}
+	}
 }
 
 //Shows a temperature on the display for 10 seconds
@@ -234,7 +234,7 @@ void showTemp(double temp)
 	if (temp < 100 && temp > -100)
 	{
 		String tempString = formatWithPadding(temp, 2);
-    showString(tempString);
+		showString(tempString);
 	}
 }
 
@@ -255,7 +255,7 @@ void setup()
 	pinMode(PIN_G, OUTPUT);
 	pinMode(PIN_DP, OUTPUT);
 
-  Serial.begin(115200);
+	Serial.begin(115200);
 }
 
 void loop()
@@ -263,12 +263,12 @@ void loop()
 	if (bme_begin_successful)
 	{
 		double temp = bme.readTemperature();
-    Serial.println("Temp: " + String(temp) + "°C");
-    showTemp(temp);
+		Serial.println("Temp: " + String(temp) + "°C");
+		showTemp(temp);
 	}
 	else
 	{
-    Serial.println("Failed reading temperature!");
-    showString("FAIL");
+		Serial.println("Failed reading temperature!");
+		showString("FAIL");
 	}
 }
