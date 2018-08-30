@@ -8,6 +8,8 @@ The other 4 pins are the cathodes. One for each digit-part.
 But now it is only possible to display the same digit on 4 digit-parts (e.g. "2222", "7777"). That sucks, right? There is a special method to address this problem.  
 The solution is to iterate over the digits of the number to display, show only one digit at a time and ground the correct pin by applying voltage to the base of the desired transistor. This process will repeat so often and so fast that the human eye is unable to see the flickering. If desired, it is possible to make the flickering visible by adding a little delay (e.g. 10ms).
 
+The temperature is read via the I²C interface. If the initial connect fails, the display will show "FAIL".
+
 My code is available in the *TempDisplay.ino* file.
 
 # Components
