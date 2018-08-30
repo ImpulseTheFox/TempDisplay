@@ -8,6 +8,8 @@
 #define BMP_MOSI 11
 #define BMP_CS 10
 
+static const int PANEL_COUNT = 4;
+
 //Edit these pins if desired
 static const int PIN_DIG_1	= 15;
 static const int PIN_DIG_2	= 2;
@@ -188,12 +190,12 @@ void showDigit(char character, int position, bool enableDot)
 //Shows a string on the display for 10 seconds
 void showString(String str)
 {
-  if(str.replace(".", "").length == 4)
+  if(str.replace(".", "").length <= PANEL_COUNT)
   {
     unsigned long startMillis = millis();
     while (true)
     {
-      for (int i = 0; i < tempStringLength; i++)
+      for (int i = 0; i < str.length; i++)
       {
         char currentChar = tempString.charAt(i);
         if (currentChar != '.') //Skip the dot
