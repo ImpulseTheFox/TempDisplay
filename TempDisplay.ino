@@ -190,19 +190,21 @@ void showDigit(char character, int position, bool enableDot)
 //Shows a string on the display for 10 seconds
 void showString(String str)
 {
-  if(str.replace(".", "").length <= PANEL_COUNT)
+  String strWithoutDot = str;
+  strWithoutDot.replace(".", "");
+  if(strWithoutDot.length() <= PANEL_COUNT)
   {
     unsigned long startMillis = millis();
     while (true)
     {
-      for (int i = 0; i < str.length; i++)
+      for (int i = 0; i < str.length(); i++)
       {
-        char currentChar = tempString.charAt(i);
+        char currentChar = str.charAt(i);
         if (currentChar != '.') //Skip the dot
         {
           int displayIndex; //Index without the dot
   
-          if (i > tempString.indexOf('.'))
+          if (i > str.indexOf('.'))
           {
             displayIndex = i - 1;
           }
@@ -211,7 +213,7 @@ void showString(String str)
             displayIndex = i;
           }
   
-          bool nextIsDot = tempString.charAt(i + 1) == '.';
+          bool nextIsDot = str.charAt(i + 1) == '.';
           showDigit(currentChar, displayIndex, nextIsDot);
         }
         //Add a delay here to make flickering visible. Increase value of delay for more flickering.
@@ -258,17 +260,15 @@ void setup()
 
 void loop()
 {
-	double temp;
-
 	if (bme_begin_successful)
 	{
-		temp = bme.readTemperature();
+		double temp = bme.readTemperature();
+    Serial.println("Temp: " + String(temp) + "°C");
+    showTemp(temp);
 	}
 	else
 	{
-		temp = 88.88; //Error
+    Serial.println("Failed reading temperature!");
+    showString("FAIL");
 	}
-
-  Serial.println("Temp: " + String(temp) + "°C");
-	showTemp(temp);
 }
