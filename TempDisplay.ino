@@ -232,7 +232,6 @@ void showTemp(double temp)
 	if (temp < 100 && temp > -100)
 	{
 		String tempString = formatWithPadding(temp, 2);
-		int tempStringLength = tempString.length();
     showString(tempString);
 	}
 }
