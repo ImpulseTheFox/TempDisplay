@@ -56,8 +56,7 @@ void resetDisplay()
 }
 
 //Shows a digit on the display. The first position is 0. Digit should only be 0-9.
-//Digit is a char because I don't want to cast from double to string to char to short/integer and it could theoretically be extended to display non-number characters
-void showDigit(char digit, int position, bool enableDot)
+void showDigit(char character, int position, bool enableDot)
 {
 	resetDisplay(); //Reset first because I don't bother writing LOW here for every other option
 
@@ -81,7 +80,7 @@ void showDigit(char digit, int position, bool enableDot)
 				return;
 		}
 
-		switch(digit)
+		switch(character)
 		{
 			case '0':
 				digitalWrite(PIN_A, HIGH);
@@ -152,6 +151,29 @@ void showDigit(char digit, int position, bool enableDot)
 				digitalWrite(PIN_F, HIGH);
 				digitalWrite(PIN_G, HIGH);
 				break;
+      case 'F':
+        digitalWrite(PIN_A, HIGH);
+        digitalWrite(PIN_E, HIGH);
+        digitalWrite(PIN_F, HIGH);
+        digitalWrite(PIN_G, HIGH);
+        break;
+      case 'A':
+        digitalWrite(PIN_A, HIGH);
+        digitalWrite(PIN_B, HIGH);
+        digitalWrite(PIN_C, HIGH);
+        digitalWrite(PIN_E, HIGH);
+        digitalWrite(PIN_F, HIGH);
+        digitalWrite(PIN_G, HIGH);
+        break;
+      case 'I':
+        digitalWrite(PIN_B, HIGH);
+        digitalWrite(PIN_C, HIGH);
+        break;
+      case 'L':
+        digitalWrite(PIN_D, HIGH);
+        digitalWrite(PIN_E, HIGH);
+        digitalWrite(PIN_F, HIGH);
+        break;
 			default:
 				return;
 		}
@@ -163,6 +185,45 @@ void showDigit(char digit, int position, bool enableDot)
 	}
 }
 
+//Shows a string on the display for 10 seconds
+void showString(String str)
+{
+  if(str.replace(".", "").length == 4)
+  {
+    unsigned long startMillis = millis();
+    while (true)
+    {
+      for (int i = 0; i < tempStringLength; i++)
+      {
+        char currentChar = tempString.charAt(i);
+        if (currentChar != '.') //Skip the dot
+        {
+          int displayIndex; //Index without the dot
+  
+          if (i > tempString.indexOf('.'))
+          {
+            displayIndex = i - 1;
+          }
+          else
+          {
+            displayIndex = i;
+          }
+  
+          bool nextIsDot = tempString.charAt(i + 1) == '.';
+          showDigit(currentChar, displayIndex, nextIsDot);
+        }
+        //Add a delay here to make flickering visible. Increase value of delay for more flickering.
+        //delay(10);
+      }
+  
+      if ((millis() - startMillis) >= (10 * 1000)) //Break after 10 seconds
+      {
+        break;
+      }
+    }
+  }
+}
+
 //Shows a temperature on the display for 10 seconds
 void showTemp(double temp)
 {
@@ -170,40 +231,7 @@ void showTemp(double temp)
 	{
 		String tempString = formatWithPadding(temp, 2);
 		int tempStringLength = tempString.length();
-		if (tempStringLength == 5)
-		{
-			unsigned long startMillis = millis();
-			while (true)
-			{
-				for (int i = 0; i < tempStringLength; i++)
-				{
-					char currentChar = tempString.charAt(i);
-					if (currentChar != '.') //Skip the dot
-					{
-						int displayIndex; //Index without the dot
-
-						if (i > tempString.indexOf('.'))
-						{
-							displayIndex = i - 1;
-						}
-						else
-						{
-							displayIndex = i;
-						}
-
-						bool nextIsDot = tempString.charAt(i + 1) == '.';
-						showDigit(currentChar, displayIndex, nextIsDot);
-					}
-          //Add a delay here to make flickering visible. Increase value of delay for more flickering.
-          //delay(10);
-				}
-
-				if ((millis() - startMillis) >= (10 * 1000)) //Break after 10 seconds
-				{
-					break;
-				}
-			}
-		}
+    showString(tempString);
 	}
 }
 
