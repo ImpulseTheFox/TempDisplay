@@ -27,7 +27,7 @@ and
 - Transistors
   - 4x BC547
 
-The components can be substituted, these are just my recommendations. The voltage applied to the sensor and the display should be at 3.3V.
+The components can be substituted, these are just my recommendations. The 3V or 3V3 pin of your board should be used. The temperature sensor will run on 3.3V, but the display can only handle 1.8V.
 
 Here is a schematic I created in KiCad:
 
