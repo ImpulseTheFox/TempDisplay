@@ -11,12 +11,13 @@
 static const int PANEL_COUNT = 4;
 
 //Edit these pins if desired
-static const int PIN_DIG_1 = 15;
-static const int PIN_DIG_2 = 2;
-static const int PIN_DIG_3 = 0;
-static const int PIN_DIG_4 = 4;
+//Avoiding pins 0 and 15 (and 12), as they are used to change boot-modes. See: https://github.com/espressif/esptool/wiki/ESP32-Boot-Mode-Selection
+static const int PIN_DIG_1 = 2;
+static const int PIN_DIG_2 = 4;
+static const int PIN_DIG_3 = 5;
+static const int PIN_DIG_4 = 18;
 static const int PIN_A     = 13;
-static const int PIN_B     = 12;
+static const int PIN_B     = 12; //This is okay, no connection to voltage or ground
 static const int PIN_C     = 14;
 static const int PIN_D     = 27;
 static const int PIN_E     = 26;
