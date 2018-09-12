@@ -32,16 +32,6 @@ Adafruit_BMP280 bme; // I2C
 
 static bool bme_begin_successful;
 
-//Arduino doesn't support sprintf
-String formatWithPadding(double temp, int padding)
-{
-	//The temperature will never be more than 2 digits left and right from the decimal point, so this is okay
-	String tempString = String(temp, padding); //Adding right padding
-	if (temp < 10 && temp > -10) tempString = "0" + tempString; //Adding left padding
-
-	return tempString;
-}
-
 //Setting everything to LOW
 void resetDisplay()
 {
@@ -235,7 +225,9 @@ void showTemp(double temp)
 {
 	if (temp < 100 && temp > -100)
 	{
-		String tempString = formatWithPadding(temp, 2);
+		char tempString[8];
+		sprintf(tempString, "%05.2f", temp);
+		
 		showString(tempString);
 	}
 }
